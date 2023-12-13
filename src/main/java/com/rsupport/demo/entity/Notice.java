@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "NOTICE")
 public class Notice implements Serializable {
@@ -24,7 +26,7 @@ public class Notice implements Serializable {
     private String content;
 
     @Column(name = "ACTIVE")
-    private boolean active;
+    private boolean active = true;
 
     @Column(name = "START_DATE")
     private Date startDate;

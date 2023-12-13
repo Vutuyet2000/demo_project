@@ -10,9 +10,11 @@ import java.util.UUID;
 
 @Repository
 public interface NoticeDao extends JpaRepository<Notice, UUID> {
-    //find notices with start_date < now and end_date > no
     public List<Notice> findByStartDateBeforeAndEndDateAfter(Date startDate, Date endDate);
+
     default List<Notice> findByStartDateBeforeAndEndDateAfter(Date givenDate) {
         return findByStartDateBeforeAndEndDateAfter(givenDate, givenDate);
     }
+
+    public Notice findByIdAndActiveTrue(UUID id);
 }

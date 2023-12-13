@@ -2,17 +2,23 @@ package com.rsupport.demo.service.impl;
 
 import com.rsupport.demo.dao.AttachmentDao;
 import com.rsupport.demo.dao.NoticeDao;
+import com.rsupport.demo.dao.ViewDao;
 import com.rsupport.demo.dto.NoticeReq;
 import com.rsupport.demo.dto.NoticeRes;
+import com.rsupport.demo.dto.ViewReq;
 import com.rsupport.demo.entity.Attachment;
 import com.rsupport.demo.entity.Notice;
+import com.rsupport.demo.entity.User;
+import com.rsupport.demo.entity.View;
 import com.rsupport.demo.mapper.NoticeMapper;
 import com.rsupport.demo.service.NoticeService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,6 +39,9 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private AttachmentDao attachmentDao;
 
+    @Autowired
+    private ViewDao viewDao;
+
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private final Path root = Paths.get("./src/main/resources/attachments/");
@@ -42,6 +51,7 @@ public class NoticeServiceImpl implements NoticeService {
         try {
             Notice notice = noticeMapper.noticeReqToNotice(noticeReq);
             notice.setRegistrationDate(new Date());
+            notice.setActive(true);
             Notice result = noticeDao.save(notice);
 
             List<Attachment> attachmentList = new ArrayList<>();
@@ -82,7 +92,6 @@ public class NoticeServiceImpl implements NoticeService {
             }
         } catch (Exception e) {
             return null;
-//            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
         return null;
     }
@@ -90,9 +99,14 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public int updateNotice(NoticeReq noticeReq, String username, MultipartFile[] attachments) {
         try {
-            Notice notice = noticeMapper.noticeReqToNotice(noticeReq);
-            notice.setUpdatedDate(new Date());
-            notice.setUpdateUser(username);
+            Notice updateNotice = noticeMapper.noticeReqToNotice(noticeReq);
+            updateNotice.setUpdatedDate(new Date());
+            updateNotice.setUpdateUser(username);
+
+            Notice notice = checkExistedAndUpdateNotice(updateNotice);
+            if(notice == null) {
+                return -1;
+            }
             Notice result = noticeDao.save(notice);
 
             List<Attachment> attachmentList = new ArrayList<>();
@@ -105,7 +119,6 @@ public class NoticeServiceImpl implements NoticeService {
             });
             attachmentDao.saveAll(attachmentList);
 
-
             return 1;
         } catch (IllegalArgumentException e) {
             return 0;
@@ -114,15 +127,26 @@ public class NoticeServiceImpl implements NoticeService {
         }
     }
 
+    private Notice checkExistedAndUpdateNotice(Notice updateNotice) {
+        Notice existedNotice = noticeDao.findByIdAndActiveTrue(updateNotice.getId());
+        if(existedNotice != null) {
+            return noticeMapper.souNoticeToTarNoticeWithoutAttachments(updateNotice, existedNotice);
+        }
+        return null;
+    }
+
     @Override
-    public int deleteNotice(UUID id) {
+    public NoticeRes deleteNotice(UUID id) {
         try {
             Notice notice = noticeDao.findById(id).get();
             notice.setActive(false);
-            noticeDao.save(notice);
-            return 1;
-        } catch (EmptyResultDataAccessException e) {
-            return 0;
+            Notice result = noticeDao.save(notice);
+
+            return noticeMapper.noticeToNoticeRes(result);
+        } catch (NoSuchElementException e) {
+            NoticeRes noticeRes = new NoticeRes();
+            noticeRes.setMessage("Not Found Notice!");
+            return noticeRes;
         }
     }
 
@@ -139,5 +163,17 @@ public class NoticeServiceImpl implements NoticeService {
         }
 
         return results;
+    }
+
+    @Override
+    public Notice getNotice(UUID id) {
+        return noticeDao.findById(id).orElseThrow(() -> new EntityNotFoundException("Notice Not Found."));
+    }
+
+    @Override
+    public View addView(ViewReq vieẉ̣̣̣̣̣Req̣, User user) {
+        View view = noticeMapper.viewReqToView(vieẉ̣̣̣̣̣Req̣);
+        view.setUser(user);
+        return viewDao.save(view);
     }
 }

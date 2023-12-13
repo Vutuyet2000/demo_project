@@ -1,9 +1,7 @@
 package com.rsupport.demo.entity;
 
+import com.rsupport.demo.enums.RoleEnum;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,17 +18,20 @@ public class User implements Serializable {
     @Column(name = "ID")
     private UUID id;
 
-    @Column(name = "USERNAME", nullable = false)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Column(name = "ACTIVE")
-    private boolean active;
+    private boolean active = true;
+
+    @Column(name = "ROLE")
+    private String role = RoleEnum.ROLE_USER.toString();
 
     @Column(name = "CREATED_DATE")
-    private Date createdDate;
+    private Date createdDate = new Date();
 
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;

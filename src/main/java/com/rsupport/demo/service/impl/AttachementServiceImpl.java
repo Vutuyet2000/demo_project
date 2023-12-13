@@ -20,15 +20,6 @@ public class AttachementServiceImpl implements AttachementService {
     private final Path root = Paths.get("resources/attachments");
 
     @Override
-    public void init() {
-        try {
-            Files.createDirectory(root);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
-        }
-    }
-
-    @Override
     public int save(MultipartFile file) {
         try {
             if(!file.getOriginalFilename().isEmpty()) {

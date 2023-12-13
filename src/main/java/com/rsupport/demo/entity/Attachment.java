@@ -21,12 +21,6 @@ public class Attachment {
     @Column(name = "URL")
     private String url;
 
-//    @Column(name = "FILE_TYPE")
-//    private String fileType;
-
-//    @Column(name = "FILE_CONTENT")
-//    private boolean fileContent;
-
     @ManyToOne
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;

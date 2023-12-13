@@ -9,17 +9,11 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "VIEW")
-//@IdClass(ViewIds.class)
 public class View implements Serializable {
     @Id
     @Column(name = "ID")
-    private UUID Id;
-//
-//    @Column(name = "USER_ID")
-//    private UUID userId;
-//
-//    @Column(name = "NOTICE_ID")
-//    private UUID noticeId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "VIEWS")
     private Integer views;
