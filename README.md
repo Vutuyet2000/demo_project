@@ -44,7 +44,7 @@ This project is about providing APIs for notice using Spring Boot.
 
 ## Project Quality
 - Having 13 test cases succeeding
-- 
+
 ## Key problem solving strategies
 - For storing attachments, we are storing these on server. Moreover, the current api for uploading attachment just support for attachment with max size 10MB. Therefore, in future, we can improve these by using thirparty to store these attachments like Amazon S3, Cloudinary, Google Cloud Storage,... 
 - For authentication, our project use JWT token. However, because of the lack of encryption of JWT token, we can replace this to Oauth 2.0, intergrating Google or Facebook authentication
