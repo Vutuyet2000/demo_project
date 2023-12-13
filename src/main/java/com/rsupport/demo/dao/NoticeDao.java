@@ -16,5 +16,7 @@ public interface NoticeDao extends JpaRepository<Notice, UUID> {
         return findByStartDateBeforeAndEndDateAfter(givenDate, givenDate);
     }
 
+    public List<Notice> findByActiveTrue();
+
     public Notice findByIdAndActiveTrue(UUID id);
 }

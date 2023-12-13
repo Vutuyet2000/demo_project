@@ -1,5 +1,6 @@
 # Notice Management Project
 This project is about providing APIs for notice using Spring Boot.
+
 ## Project Overview
 ### 1. Authentication 
 - register user:
@@ -21,6 +22,7 @@ This project is about providing APIs for notice using Spring Boot.
     - content cannot be null
 - delete notice: soft delete
 - add view for notice: the new view will be increased when user read notice
+
 ## Core Technologies
 - Java JDK 8
 - Spring Boot 2 ecosystem
@@ -33,6 +35,19 @@ This project is about providing APIs for notice using Spring Boot.
 - Lombok
 - JWT
 - JUnit, Mockito
-## Project Instructions
 
-## Architecture Exploration
+## Project Instructions
+- Install PostgresQL 
+- Update database config in ./resources/application.properties
+- Run Notice Management Project
+- Use Postman API from file **Exam.postman_collection.json** to test APIs
+
+## Project Quality
+- Having 13 test cases succeeding
+- 
+## Key problem solving strategies
+- For storing attachments, we are storing these on server. Moreover, the current api for uploading attachment just support for attachment with max size 10MB. Therefore, in future, we can improve these by using thirparty to store these attachments like Amazon S3, Cloudinary, Google Cloud Storage,... 
+- For authentication, our project use JWT token. However, because of the lack of encryption of JWT token, we can replace this to Oauth 2.0, intergrating Google or Facebook authentication
+- For robusting API response, we can apply cache Spring Boot cache or Redis to inquiring APIs in future.
+
+

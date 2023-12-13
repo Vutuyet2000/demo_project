@@ -58,7 +58,7 @@ public class NoticeServiceTest {
 
     @Test
     public void getNoticesTest_Success() {
-        Mockito.when(noticeDao.findByStartDateBeforeAndEndDateAfter(Mockito.any())).thenReturn(notices);
+        Mockito.when(noticeDao.findByActiveTrue()).thenReturn(notices);
         List<NoticeRes> results = noticeService.getActiveNotices();
 
         Assertions.assertEquals(notices.size(), results.size());

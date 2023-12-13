@@ -154,7 +154,7 @@ public class NoticeServiceImpl implements NoticeService {
     public List<NoticeRes> getActiveNotices() {
         List<NoticeRes> results = new ArrayList<>();
 
-        List<Notice> notices = noticeDao.findByStartDateBeforeAndEndDateAfter(new Date());
+        List<Notice> notices = noticeDao.findByActiveTrue();
         if(!notices.isEmpty()) {
             for (Notice notice : notices) {
                 NoticeRes result = noticeMapper.noticeToNoticeRes(notice);

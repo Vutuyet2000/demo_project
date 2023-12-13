@@ -79,7 +79,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":null,\r\n    \"password\":\"1\"\r\n}",
+					"raw": "{\r\n    \"username\":\"tuyet\",\r\n    \"password\":\"1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -180,7 +180,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXlldCIsImlhdCI6MTcwMjM5Mzk3OCwiZXhwIjoxNzAyMzkzOTk2fQ.W-y9CCgjN3RJwNQlwiIUQ_VB8CX2cx4NbwzuD7NrBQsU2wwOAlYNPAJ2nmZc6-cX-djLAbA8L8H-12Btjzhz8w",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXlldCIsImlhdCI6MTcwMjQ2MTQ4MiwiZXhwIjoxNzAyNDYxNTAwfQ.egDiGzfYLoMroXaLceXWq5utMPjwWNNiFvBUd6lasBZs-9XyeO8Nrp8Oo_IrbTHmFYh_36DJ04pI_OvcGg5TSQ",
 							"type": "string"
 						}
 					]
@@ -219,6 +219,73 @@
 					"port": "8080",
 					"path": [
 						"create-notice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Notices",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXlldCIsImlhdCI6MTcwMjQ2MDgwNSwiZXhwIjoxNzAyNDYwODIzfQ.4xE-QlX_W5RTlMX8EkjGuLIQ-knvT3NKPuNFBrksZTGTTynd5clQBsIrGsJLoDjwLAEyaB3IoLf8Saipx4KkQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/get-notices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get-notices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add View",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dXlldCIsImlhdCI6MTcwMjQ2MDc1NiwiZXhwIjoxNzAyNDYwNzc0fQ.XjIr0xafGK2FCbGh2bSdL_dNDyYqonw0fd83XxEBzQuoLxi0S-IjivGEvFh_vsi3rEjdR1RZsZ2_tP5blqPkSQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"noticeId\":\"214bc8de-fcb2-41fe-b55b-db7daf24baa5\",\r\n    \"view\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/add-view",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"add-view"
 					]
 				}
 			},

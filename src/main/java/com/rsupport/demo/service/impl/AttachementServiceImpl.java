@@ -4,6 +4,7 @@ import com.rsupport.demo.dao.AttachmentDao;
 import com.rsupport.demo.entity.Attachment;
 import com.rsupport.demo.service.AttachementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,9 @@ public class AttachementServiceImpl implements AttachementService {
     @Autowired
     private AttachmentDao attachmentDao;
 
-    private final Path root = Paths.get("resources/attachments");
+    private final String storeDir = "resources/attachments";
+
+    private final Path root = Paths.get(storeDir);
 
     @Override
     public int save(MultipartFile file) {
